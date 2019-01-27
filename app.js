@@ -12,7 +12,7 @@ var Cell = function(cellType){
 	this.column = null;
 	this.distance = null;
 	this.pred = null;
-	this.bfsColor = "white";
+	this.searchColor = "white";
 };
 
 Cell.prototype.getColor = function() {
@@ -56,16 +56,12 @@ Cell.prototype.getDistance = function(){
 	return this.distance;
 };
 
-Cell.prototype.getBFSColor = function(){
-	return this.bfsColor;
+Cell.prototype.getSearchColor = function(){
+	return this.searchColor;
 };
 
-Cell.prototype.setBFSColor = function(color){
-	this.bfsColor = color;
-};
-
-Cell.prototype.setBFSColor = function(color){
-	this.bfsColor = color;
+Cell.prototype.setSearchColor = function(color){
+	this.searchColor = color;
 };
 
 Cell.prototype.setPred = function(pred){
@@ -222,15 +218,15 @@ Maze.prototype.shortestBFS = function(){
 			let col = neighbor[1];
 			if (row >= 0 && col >= 0 && row < this.contents.length && col < this.contents[0].length){
 				let cell = this.contents[row][col];
-				if (cell.getBFSColor() == "white" && cell.value != "#"){
-					cell.setBFSColor("gray");
+				if (cell.getSearchColor() == "white" && cell.value != "#"){
+					cell.setSearchColor("gray");
 					cell.setDistance(currentCell.getDistance() + 1);
 					cell.setPred(currentCell);
 					cellQueue.push(cell);
 				}
 			}
 		}
-		currentCell.setBFSColor("black");
+		currentCell.setSearchColor("black");
 	}
 };
 
